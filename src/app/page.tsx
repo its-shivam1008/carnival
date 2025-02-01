@@ -1,9 +1,10 @@
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="h-screen flex items-center justify-center">
-      PHeloo 
+  return (<>
+    <div className="text-white bg-blue-300 h-screen">
+      Heloo 
     </div>
+    </>
   );
 }
