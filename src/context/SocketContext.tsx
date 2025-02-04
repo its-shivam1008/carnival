@@ -1,3 +1,4 @@
+import { SocketUser } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -10,6 +11,7 @@ export const SocketContext = createContext<iSocketContext | null>(null);
 export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>{
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isSocketConnected, setIsSocketConnected] = useState(false);
+    const [onlineUsers, setOnlineUsers] = useState<SocketUser[] | null>(null);
 
     console.log("socketConnected ===", isSocketConnected);
 
@@ -46,7 +48,23 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
         socket.off('connect',onConnect);
         socket.off('disconnect',onDisconnect);
       }
-    }, [socket])
+    }, [socket]);
+
+    // set online users 
+    useEffect(() => {
+      if(!socket || !isSocketConnected ) return 
+
+    //   socket.emit('addNewUser', user); // the user comes from the "initializing socket.io" use effect
+      socket.on('getUsers', (res)=>{
+        setOnlineUsers(res);
+      })
+
+      return () =>{
+        socket.off('getUsers', (res)=>{
+          setOnlineUsers(res);
+        })
+      }
+    }, [socket, isSocketConnected]) // we also have to include the "user" which comes from the "initializing socket.io" use effect
     
 
     return <SocketContext.Provider value={{}}>

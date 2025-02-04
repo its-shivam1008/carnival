@@ -13,6 +13,7 @@ app.prepare().then(() => {
   const httpServer = createServer(handler);
 
   const io = new Server(httpServer);
+  let onlineUsers = [];
 
   io.on("connection", (socket) => {
     console.log("Client connected");
