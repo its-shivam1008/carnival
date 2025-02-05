@@ -8,9 +8,15 @@ export default function Home() {
         <div className="bg-[#001219]/60 rounded-[12px] moving-div w-[100px] h-[100px]"></div>
         <div className="bg-[#001219]/60 rounded-[12px] moving-div w-[80px] h-[80px]"></div>
         <div className="bg-white bg-opacity-10 backdrop-blur-sm h-screen w-full flex items-center justify-center z-1 top-0 absolute">
-          <div>
-             <div className="title">Camly</div>
-             <div className="tagline">Speak, your way!</div>
+          <div className='space-y-3 flex flex-col justify-center'>
+             <div className="title text-center text-[6rem] tracking-wide font-bold">Camly</div>
+             <div className="tagline text-black tracking-[1rem] text-center text-2xl font-light">Speak, your way!</div>
+             <div className='relative w-fit p-5 mx-auto group'>
+              <div
+            className="absolute transitiona-all duration-1000 opacity-10 -inset-px bg-[#78ff78] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-500 animate-tilt">
+        </div>
+             <button type="button" className='p-2 shadow-xl relative py-2 px-8 bg-black rounded-[8px] text-white font-semibold tracking-wider'>Call a friend</button>
+             </div>
           </div>
         </div>
       </div>
