@@ -2,10 +2,15 @@
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 export default function Home() {
   //GSAP
+  // hero section animation
   useGSAP(() => {
     // let tl = gsap.timeline();
     gsap.to('.moving-div1',{
@@ -29,17 +34,99 @@ export default function Home() {
     gsap.to('.moving-div3',{
       // rotate:360,
       x:-250,
-      y:-30,
+      y:30,
       duration:60,
       repeat:-1,
       ease:"power1.out",
       yoyo:true
     })
   })
+  //features page animation
+  useGSAP(() => {
+    let tl = gsap.timeline();
+    tl.from("#features .featurePage1 div .number",{
+      duration:2,
+      opacity:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top 0%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+    tl.from("#features .featurePage1 div .textFeature", {
+      duration:3,
+      scale:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top 0%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+    tl.from("#features .featurePage2 div .number",{
+      duration:2,
+      opacity:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top -100%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+    tl.from("#features .featurePage2 div .textFeature", {
+      duration:3,
+      scale:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top -100%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+    tl.from("#features .featurePage3 div .number",{
+      duration:2,
+      opacity:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top -170%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+    tl.from("#features .featurePage3 div .textFeature", {
+      duration:3,
+      scale:0,
+      scrollTrigger:{
+        trigger:"#features",
+        scroller:"body",
+        markers:true,
+        start:"top -170%",
+        end:"end end",
+        scrub:3,
+        pin:true
+      }
+    })
+  })
   return (
     <div className='w-full'>
       <div className="hero bg-[#d6d4d4] h-screen relative">
-        <div className='moving-div1 z-1 top-32 left-80 absolute'>
+        <div className='moving-div1 z-1 top-32 left-60 absolute'>
           <div className='w-fit p-5'>
                 <div className="relative w-[235px] h-[235px] opacity-100 bg-[#78ff78] rounded-xl blur-lg">
                 <div className="bg-[#001219] absolute rounded-[12px] inset-5 moving-div w-[200px] h-[200px]"></div>
@@ -67,23 +154,23 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="features bg-[#f2f2f2]">
-        <div className="feature1 flex justify-center items-center h-screen">
+      <div id='features' className="features bg-[#f2f2f2]">
+        <div className="featurePage1 flex justify-center items-center h-screen">
           <div className=' space-y-10 '>
-            <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>1</div>
-            <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+            <div className='number mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>1</div>
+            <div className='textFeature text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
           </div>
         </div>
-        <div className="feature2 flex justify-center items-center h-screen">
+        <div className="featurePage2 flex justify-center items-center h-screen">
           <div className=' space-y-10 '>
-              <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>2</div>
-              <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+              <div className='number mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>2</div>
+              <div className='textFeature text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
           </div>
           </div>
-          <div className="feature3 flex justify-center items-center h-screen">
+          <div className="featurePage3 flex justify-center items-center h-screen">
             <div className=' space-y-10 '>
-              <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>3</div>
-              <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+              <div className='number mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>3</div>
+              <div className='textFeature text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
             </div>
           </div>
       </div>
