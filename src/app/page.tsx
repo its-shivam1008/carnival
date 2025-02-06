@@ -1,15 +1,62 @@
+"use client";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 
 export default function Home() {
+  //GSAP
+  useGSAP(() => {
+    // let tl = gsap.timeline();
+    gsap.to('.moving-div1',{
+      // rotate:360,
+      x:-50,
+      y:250,
+      duration:70,
+      repeat:-1,
+      ease:"power1.out",
+      yoyo:true
+    })
+    gsap.to('.moving-div2',{
+      // rotate:360,
+      x:-200,
+      y:50,
+      duration:80,
+      repeat:-1,
+      ease:"power1.out",
+      yoyo:true
+    })
+    gsap.to('.moving-div3',{
+      // rotate:360,
+      x:-250,
+      y:-30,
+      duration:60,
+      repeat:-1,
+      ease:"power1.out",
+      yoyo:true
+    })
+  })
   return (
     <div className='w-full'>
       <div className="hero bg-[#d6d4d4] h-screen relative">
-        <div className="bg-[#001219]/60 rounded-[12px] moving-div w-[200px] h-[200px]"></div>
-        <div className="bg-[#001219]/60 rounded-[12px] moving-div w-[100px] h-[100px]"></div>
-        <div className="bg-[#001219]/60 rounded-[12px] moving-div w-[80px] h-[80px]"></div>
-        <div className="bg-white bg-opacity-10 backdrop-blur-sm h-screen w-full flex items-center justify-center z-1 top-0 absolute">
+        <div className='moving-div1 z-1 top-32 left-80 absolute'>
+          <div className='w-fit p-5'>
+                <div className="relative w-[235px] h-[235px] opacity-100 bg-[#78ff78] rounded-xl blur-lg">
+                <div className="bg-[#001219] absolute rounded-[12px] inset-5 moving-div w-[200px] h-[200px]"></div>
+              </div>
+          </div>
+        </div>
+        <div className="moving-div2 bg-[#001219]/60 rounded-[12px] moving-div w-[100px] h-[100px] z-1 top-48 right-1/4 absolute"></div>
+        <div className='moving-div3 z-1 bottom-48 left-3/4 absolute'>
+          <div className='w-fit p-5'>
+                <div className="relative w-[120px] h-[120px] opacity-100 bg-[#78ff78] rounded-xl blur-lg">
+                <div className="bg-[#001219] absolute rounded-[12px] inset-5 moving-div w-[80px] h-[80px]"></div>
+              </div>
+          </div>
+        </div>
+        <div className="bg-white bg-opacity-10 backdrop-blur-sm h-screen w-full flex items-center justify-center z-10 top-0 absolute">
           <div className='space-y-3 flex flex-col justify-center'>
-             <div className="title text-center text-[6rem] tracking-wide font-bold">Camly</div>
+             <div className="title text-center text-[5rem] tracking-wide font-bold">Camly</div>
              <div className="tagline text-black tracking-[1rem] text-center text-2xl font-light">Speak, your way!</div>
              <div className='relative w-fit p-5 mx-auto group'>
               <div
@@ -23,20 +70,20 @@ export default function Home() {
       <div className="features bg-[#f2f2f2]">
         <div className="feature1 flex justify-center items-center h-screen">
           <div className=' space-y-10 '>
-            <div className='mx-auto w-fit text-center text-[6rem] py-8 px-20 rounded-full bg-[#78ff78]'>1</div>
-            <div className='text-center text-xl font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+            <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>1</div>
+            <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
           </div>
         </div>
         <div className="feature2 flex justify-center items-center h-screen">
           <div className=' space-y-10 '>
-              <div className='mx-auto w-fit text-center text-[6rem] py-8 px-20 rounded-full bg-[#78ff78]'>2</div>
-              <div className='text-center text-xl font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+              <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>2</div>
+              <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
           </div>
           </div>
           <div className="feature3 flex justify-center items-center h-screen">
             <div className=' space-y-10 '>
-              <div className='mx-auto w-fit text-center text-[6rem] py-8 px-20 rounded-full bg-[#78ff78]'>3</div>
-              <div className='text-center text-xl font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
+              <div className='mx-auto w-fit text-center text-[5rem] py-7 px-16 rounded-full bg-[#78ff78]'>3</div>
+              <div className='text-center text-lg font-semibold'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem illo dolore voluptates recusandae assumenda minus asperiores amet mollitia nulla ducimus.</div>
             </div>
           </div>
       </div>
