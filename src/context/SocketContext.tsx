@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
 interface iSocketContext {
-
+  onlineUsers: SocketUser[] | null
 }
 
 export const SocketContext = createContext<iSocketContext | null>(null);
@@ -13,7 +13,8 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     const [isSocketConnected, setIsSocketConnected] = useState(false);
     const [onlineUsers, setOnlineUsers] = useState<SocketUser[] | null>(null);
 
-    console.log("socketConnected ===", isSocketConnected);
+    console.log("socketConnected ===>", isSocketConnected);
+    console.log("OnlineUsers ===>", onlineUsers);
 
 
     // initializing a socket
@@ -67,7 +68,9 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     }, [socket, isSocketConnected]) // we also have to include the "user" which comes from the "initializing socket.io" use effect
     
 
-    return <SocketContext.Provider value={{}}>
+    return <SocketContext.Provider value={{
+      onlineUsers
+    }}>
         {children}
     </SocketContext.Provider>
 }

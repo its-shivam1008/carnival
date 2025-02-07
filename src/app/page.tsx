@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export default function Home() {
+  // const logMaker = () => {}
   //GSAP
   // hero section animation
   useGSAP(() => {
@@ -50,7 +51,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top 0%",
         end:"end end",
         scrub:3,
@@ -63,7 +64,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top 0%",
         end:"end end",
         scrub:3,
@@ -76,7 +77,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top -100%",
         end:"end end",
         scrub:3,
@@ -89,7 +90,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top -100%",
         end:"end end",
         scrub:3,
@@ -102,7 +103,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top -170%",
         end:"end end",
         scrub:3,
@@ -115,7 +116,7 @@ export default function Home() {
       scrollTrigger:{
         trigger:"#features",
         scroller:"body",
-        markers:true,
+        // markers:true,
         start:"top -170%",
         end:"end end",
         scrub:3,
