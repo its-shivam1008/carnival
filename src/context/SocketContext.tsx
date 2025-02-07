@@ -1,4 +1,5 @@
 import { SocketUser } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -18,15 +19,15 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
 
 
     // initializing a socket
+    const {user} = useUser();  // useUser() is a hook prooviderd by clerk js
     useEffect(() => {
-        // const {user} = useUser();  // useUser() is a hook prooviderd by clerk js
         const newSocket = io();
         setSocket(newSocket);
 
         return  () => {
             newSocket.disconnect();
         }
-    }, []) // the above defined user comes here as the dependancy of the useEffect hook's dependancy array.
+    }, [user]) // the above defined user comes here as the dependancy of the useEffect hook's dependancy array.
 
     useEffect(() => {
       if(socket === null){
@@ -55,7 +56,7 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     useEffect(() => {
       if(!socket || !isSocketConnected ) return 
 
-    //   socket.emit('addNewUser', user); // the user comes from the "initializing socket.io" use effect
+      socket.emit('addNewUser', user); // the user comes from the "initializing socket.io" use effect
       socket.on('getUsers', (res)=>{
         setOnlineUsers(res);
       })
@@ -65,7 +66,7 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
           setOnlineUsers(res);
         })
       }
-    }, [socket, isSocketConnected]) // we also have to include the "user" which comes from the "initializing socket.io" use effect
+    }, [socket, isSocketConnected, user]) // we also have to include the "user" which comes from the "initializing socket.io" use effect
     
 
     return <SocketContext.Provider value={{
