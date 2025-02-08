@@ -4,10 +4,11 @@ import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import React from 'react';
 import { CiUser } from "react-icons/ci";
+import { FaVideo } from 'react-icons/fa6';
 
 const ListOnlineUsers = () => {
 
-    const {onlineUsers} = useSocket();
+    const {onlineUsers, handleCall} = useSocket();
     const {user} = useUser();
 
 
@@ -15,11 +16,12 @@ const ListOnlineUsers = () => {
     <div className='h-screen flex flex-col w-full'>
         {onlineUsers && onlineUsers.map((onlineUser, index) => {
             if(user?.id === onlineUser.profile.id) return null;
-           return <div key={index} className='flex space-x-3 items-center'>
+           return <div key={index} className='flex space-x-3 items-center justify-between p-2'>
                 <Image src={onlineUser.profile.imageUrl} className="rounded-full" alt="Avatar" height={50} width={50}/>
                 <div>
                     {onlineUser.profile.fullName?.split(" ")[0]}
                 </div>
+                <button type="button" onClick={() => handleCall(onlineUser)} className='flex space-x-2 items-center px-2 py-2 bg-blue-600 hover:bg-blue-500 rounded-[8px] text-white font-bold'>Call <FaVideo className='text-white'/></button>
             </div>
         })}
     </div>

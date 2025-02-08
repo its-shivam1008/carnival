@@ -11,6 +11,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import Notification from "@/components/layouts/Notification";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <SocketProvider>
         <Navbar/>
+        <Notification/>
             {children}
           </SocketProvider>
         </body>
