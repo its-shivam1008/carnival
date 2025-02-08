@@ -26,7 +26,7 @@ app.prepare().then(() => {
         profile: clerkUser
       })
 
-      io.emit('getUser', onlineUsers)
+      io.emit('getUsers', onlineUsers)
     })
 
     socket.on('disconnect', () => {

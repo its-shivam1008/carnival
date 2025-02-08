@@ -10,6 +10,7 @@ interface iSocketContext {
 export const SocketContext = createContext<iSocketContext | null>(null);
 
 export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>{
+    const {user} = useUser();  // useUser() is a hook prooviderd by clerk js
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isSocketConnected, setIsSocketConnected] = useState(false);
     const [onlineUsers, setOnlineUsers] = useState<SocketUser[] | null>(null);
@@ -19,7 +20,6 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
 
 
     // initializing a socket
-    const {user} = useUser();  // useUser() is a hook prooviderd by clerk js
     useEffect(() => {
         const newSocket = io();
         setSocket(newSocket);
