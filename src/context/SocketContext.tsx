@@ -7,6 +7,7 @@ import { io, Socket } from "socket.io-client";
 interface iSocketContext {
   onlineUsers: SocketUser[] | null;
   ongoingCall: OngoingCall | null;
+  localStream: MediaStream | null;
   handleCall: (user: SocketUser) => void;
 }
 
@@ -18,15 +19,53 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     const [isSocketConnected, setIsSocketConnected] = useState(false);
     const [onlineUsers, setOnlineUsers] = useState<SocketUser[] | null>(null);
     const [ongoingCall, setOngoingCall] = useState< OngoingCall | null>(null);
-    // const [currentSocketUser, setCurrentSocketUser] = useState<>()
+    const [localStream, setLocalStream] = useState<MediaStream | null>(null);
 
     const currentSocketUser = onlineUsers?.find(onlineUser => onlineUser.userId === user?.id);
     
     // console.log("socketConnected ===>", isSocketConnected);
     // console.log("OnlineUsers ===>", onlineUsers);
 
-    const handleCall = useCallback((user:SocketUser) => {
+    const getMediaStream = useCallback(async (faceMode?:string) => {
+      if(localStream){
+        return localStream;
+      }
+
+      try{
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === "videoinput");
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio:true,
+          video: {
+            width:{min:640, ideal:1280, max:1920},
+            height:{min:360, ideal:720, max:1080},
+            frameRate:{min:16, ideal:30, max:30},
+            facingMode:videoDevices.length > 0 ? faceMode : undefined
+          }
+        })
+
+        return stream;
+
+      }catch(error){
+        console.log("Failed to load stream", error);
+        setLocalStream(null);
+        return null;
+      }
+
+    }, [localStream])
+
+    const handleCall = useCallback( async (user:SocketUser) => {
       if(!currentSocketUser|| !socket) return;
+
+      const stream = await getMediaStream();
+
+      if(!stream){
+        console.log("no steam in handleCall");
+        return;
+      }
+
       const participants = {caller : currentSocketUser, receiver:user}
       setOngoingCall({
         participants:participants,
@@ -105,6 +144,7 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     return <SocketContext.Provider value={{
       onlineUsers,
       ongoingCall,
+      localStream,
       handleCall,
     }}>
         {children}

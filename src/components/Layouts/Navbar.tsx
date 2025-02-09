@@ -18,7 +18,9 @@ const Navbar = () => {
                 Camly
             </Link>
             <div className='flex flex-row space-x-5'>
-            {/* <UserButton/> */}
+            <Link href='/users' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Users</Link>
+                <Link href='#features' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Features</Link>
+                <Link href='#' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Option3</Link>
             <SignedOut>
               <SignInButton />
               <SignUpButton />
@@ -26,9 +28,7 @@ const Navbar = () => {
             <SignedIn>
               <UserButton />
             </SignedIn>
-                <Link href='/users' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Users</Link>
-                <Link href='#features' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Features</Link>
-                <Link href='#' className="font-semibold text-lg hover:text-white hover:bg-[#001219] rounded-full px-2 py-1 transition-colors duration-500 cursor-pointer">Option3</Link>
+                
             </div>
         </div>
     </div>
