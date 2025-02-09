@@ -21,7 +21,7 @@ const ListOnlineUsers = () => {
                 <div>
                     {onlineUser.profile.fullName?.split(" ")[0]}
                 </div>
-                <button type="button" onClick={() => handleCall(onlineUser)} className='flex space-x-2 items-center px-2 py-2 bg-blue-600 hover:bg-blue-500 rounded-[8px] text-white font-bold'>Call <FaVideo className='text-white'/></button>
+                <button type="button" onClick={() => handleCall(onlineUser)} className='flex space-x-2 items-center px-2 py-2 bg-blue-600 hover:bg-blue-500 rounded-[8px] text-white font-bold'>Call <FaVideo className='text-white pl-2'/></button>
             </div>
         })}
     </div>

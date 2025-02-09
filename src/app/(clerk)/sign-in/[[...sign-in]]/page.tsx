@@ -1,3 +1,4 @@
+"use server";
 import { SignIn } from '@clerk/nextjs'
 
 export default function Page() {
