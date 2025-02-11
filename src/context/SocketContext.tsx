@@ -66,6 +66,8 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
         return;
       }
 
+      setLocalStream(stream);
+
       const participants = {caller : currentSocketUser, receiver:user}
       setOngoingCall({
         participants:participants,

@@ -1,4 +1,5 @@
 'use client';
+import VideoCall from '@/components/layouts/VideoCall';
 import { useSocket } from '@/context/SocketContext';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
@@ -12,7 +13,7 @@ const ListOnlineUsers = () => {
 
 
   return (
-    <div className='h-screen flex flex-col w-full'>
+    <div className='h-screen flex flex-col w-full justify-center'>
         {onlineUsers && onlineUsers.map((onlineUser, index) => {
             if(user?.id === onlineUser.profile.id) return null;
            return <div key={index} className='flex space-x-3 items-center justify-between p-2'>
@@ -20,9 +21,10 @@ const ListOnlineUsers = () => {
                 <div>
                     {onlineUser.profile.fullName?.split(" ")[0]}
                 </div>
-                <button type="button" onClick={() => handleCall(onlineUser)} className='flex space-x-2 items-center px-2 py-2 bg-blue-600 hover:bg-blue-500 rounded-[8px] text-white font-bold'>Call <FaVideo className='text-white pl-2' size={10}/></button>
+                <button type="button" onClick={() => handleCall(onlineUser)} className='flex space-x-2 items-center px-2 py-2 w-fit bg-blue-600 hover:bg-blue-500 rounded-[8px] text-white font-bold'>Call <FaVideo className='text-white pl-2' size={24}/></button>
             </div>
         })}
+        <VideoCall/>
     </div>
   )
 }
