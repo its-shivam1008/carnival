@@ -19,7 +19,7 @@ const VideoContent = ({stream, isLocalStream, isOnCall}:VideoContainer) => {
 
   return (
     <div>
-        <video className='rounded border w-[800px]' ref={videoRef} autoPlay playsInline muted={isLocalStream}></video>
+        <video className='rounded-xl border w-[800px]' ref={videoRef} autoPlay playsInline muted={isLocalStream}></video>
     </div>
   )
 }

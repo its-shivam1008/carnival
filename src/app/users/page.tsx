@@ -11,9 +11,8 @@ const ListOnlineUsers = () => {
     const {onlineUsers, handleCall} = useSocket();
     const {user} = useUser();
 
-
   return (
-    <div className='h-screen flex flex-col w-full justify-center'>
+    <div className='h-screen flex flex-col w-full items-center'>
         {onlineUsers && onlineUsers.map((onlineUser, index) => {
             if(user?.id === onlineUser.profile.id) return null;
            return <div key={index} className='flex space-x-3 items-center justify-between p-2'>
