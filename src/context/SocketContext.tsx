@@ -8,6 +8,7 @@ import Peer, { SignalData, SimplePeerData } from "simple-peer";
 interface iSocketContext {
   onlineUsers: SocketUser[] | null;
   ongoingCall: OngoingCall | null;
+  peer:PeerData | null;
   localStream: MediaStream | null;
   handleCall: (user: SocketUser) => void;
   handleJoinCall: (ongoingCall: OngoingCall) => void
@@ -131,6 +132,34 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
       return peer;
     },[ongoingCall, setPeer])
 
+    const completePeerConnection = useCallback(async(connectionData:{sdp:SignalData, ongoingCall:OngoingCall, isCaller:boolean}) => {
+      if(!localStream){
+        console.log("Missing the localStream");
+        return;
+      }
+
+      if(peer){
+        peer.peerConnection?.signal(connectionData.sdp);
+        return;
+      }
+
+      const newPeer = createPeer(localStream, true);
+      setPeer({
+        peerConnection:newPeer,
+        participantUser:connectionData.ongoingCall.participants.receiver,
+        stream:undefined
+      })
+      newPeer.on('signal', async(data:SignalData)=>{
+        if(socket){
+          socket.emit("webrtcSignal",{
+            sdp:data,
+            ongoingCall,
+            isCaller:true
+          })
+        }
+      })
+    }, [localStream, createPeer, peer, ongoingCall])
+
     const handleJoinCall = useCallback(async (ongoingCall:OngoingCall) => {
 
       setOngoingCall(prev => {
@@ -219,14 +248,18 @@ export const SocketContextProvider = ({children}: {children:React.ReactNode}) =>
     useEffect(() => {
       if(!socket || !isSocketConnected) return;
       socket.on("incomingCall", onIncomingCall);
+      socket.on("webrtcSignal", completePeerConnection);
+      
       return () => {
         socket.off("incomingCall", onIncomingCall);
+        socket.off("webrtcSignal", completePeerConnection);
       }
-    }, [socket, isSocketConnected, user, onIncomingCall])
+    }, [socket, isSocketConnected, user, onIncomingCall, completePeerConnection])
 
     return <SocketContext.Provider value={{
       onlineUsers,
       ongoingCall,
+      peer,
       localStream,
       handleCall,
       handleJoinCall

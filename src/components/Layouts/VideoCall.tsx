@@ -5,7 +5,7 @@ import VideoContent from './VideoContent';
 import { MdMic, MdMicOff, MdVideoCall, MdVideocam, MdVideocamOff } from 'react-icons/md';
 
 const VideoCall = () => {
-    const {localStream} = useSocket();
+    const {localStream, peer, ongoingCall} = useSocket();
     
     const [isVidOn, setIsVidOn] = useState(true);
     const [isMicOn, setIsMicOn] = useState(true);
@@ -34,11 +34,16 @@ const VideoCall = () => {
             setIsMicOn(audioTrack.enabled);
         }
     },[localStream])
+
+    const isOnCall = localStream && peer && ongoingCall ? true : false
     
 
   return (
     <div className="flex flex-col justify-center gap-8">
-         {localStream && <VideoContent stream={localStream} isLocalStream={true} isOnCall={false}/>}
+         <div className='mt-4 relative'>
+            {localStream && <VideoContent stream={localStream} isLocalStream={true} isOnCall={isOnCall}/>}
+            {peer && peer.stream && <VideoContent stream={peer.stream} isLocalStream={false} isOnCall={isOnCall}/>}
+         </div>
          {
             localStream && <div className="flex justify-center gap-8">
                 <button type="button" onClick={toggleMic}>
