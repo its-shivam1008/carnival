@@ -22,6 +22,21 @@ app.prepare().then(() => {
 
   io.on("connection", (socket) => {
     console.log("Client connected");
+
+    socket.on('join-room', (roomId, userId) => {
+      if (!users[roomId]) users[roomId] = [];
+      users[roomId].push(userId);
+
+      // Notify existing users about the new participant
+      socket.broadcast.to(roomId).emit('user-connected', userId);
+
+      socket.join(roomId);
+
+      socket.on('disconnect', () => {
+          users[roomId] = users[roomId].filter(id => id !== userId);
+          socket.broadcast.to(roomId).emit('user-disconnected', userId);
+      });
+    });
     
     socket.on("addNewUser", (clerkUser) => {
       clerkUser  && !onlineUsers.some(user => user?.userId === clerkUser.id) &&
